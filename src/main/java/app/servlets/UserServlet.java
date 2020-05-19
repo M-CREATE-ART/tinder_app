@@ -79,6 +79,7 @@ public class UserServlet extends HttpServlet {
             cookie.setMaxAge(60*60);
             resp.addCookie(cookie);
             data.put("user", unVisitedUser.get());
+            userDao.updateLastLogin(me);
             engine.render("like-page.ftl", data, resp);
         }
 

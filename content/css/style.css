@@ -367,3 +367,22 @@ input:focus{
   outline: none;
 }
 
+/*custom styles*/
+
+
+.login-custom-styles{
+    background-color:#1F3541;
+}
+.login-submit-btn{
+    background-color:#5289B5;
+    border-radius: 40px;
+    border-color: #5289B5;
+}
+.input-custom-styles{
+    border-radius: 40px;
+    margin-bottom: 10px;
+}
+.login-heading{
+    color:white;
+}
+

@@ -57,5 +57,15 @@ public class UserDao {
     }
 
 
+    public boolean checkDuplicate(String email) throws SQLException {
+        return getAllUsers().stream().anyMatch(u -> u.getEmail().equals(email));
+    }
 
+    public void saveUserInfo(String fullname, String email, String password, String image ) throws SQLException {
+        connectionTool.saveUserInfo(fullname, email, password, image);
+    }
+
+    public void updateLastLogin(User user) throws SQLException {
+        connectionTool.updateLastLogin(user);
+    }
 }

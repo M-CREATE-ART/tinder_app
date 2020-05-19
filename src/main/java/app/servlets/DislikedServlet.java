@@ -15,11 +15,11 @@ import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
 
-public class LikedServlet extends HttpServlet {
+public class DislikedServlet extends HttpServlet {
     UserDao userDao = new UserDao();
     private final TemplateEngine engine;
 
-    public LikedServlet(TemplateEngine engine) throws SQLException {
+    public DislikedServlet(TemplateEngine engine) throws SQLException {
         this.engine = engine;
     }
 
@@ -28,8 +28,8 @@ public class LikedServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HashMap<String, Object> data = new HashMap<>();
         User me = userDao.getMeFromCookie(req);
-        List<User> likedUsers = userDao.getLikedUsers(me);
-        data.put("users", likedUsers);
+        List<User> dislikedUsers = userDao.getDislikedUsers(me);
+        data.put("users",dislikedUsers );
         userDao.updateLastLogin(me);
         engine.render("people-list.ftl", data, resp);
     }
@@ -37,14 +37,12 @@ public class LikedServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String email = req.getParameter("message");
+        Cookie cookie = new Cookie("message", email);
+        cookie.setMaxAge(60*60);
+        resp.addCookie(cookie);
 
-        if (email!=null) {
-            Cookie cookie = new Cookie("message", email);
-            cookie.setMaxAge(60 * 60);
-            resp.addCookie(cookie);
+        resp.sendRedirect("/messages");
 
-            resp.sendRedirect("/messages");
-        }
     }
 
 }

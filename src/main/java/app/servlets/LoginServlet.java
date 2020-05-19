@@ -2,6 +2,7 @@ package app.servlets;
 
 
 import app.dao.UserDao;
+import app.tools.CookieFilter;
 import app.tools.TemplateEngine;
 import lombok.SneakyThrows;
 
@@ -27,9 +28,14 @@ public class LoginServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        HashMap<String, Object> data = new HashMap<>();
-        engine.render("login.ftl", data, resp);
-
+        CookieFilter cf = new CookieFilter();
+        if (!cf.isLogged(req)) {
+            HashMap<String, Object> data = new HashMap<>();
+            engine.render("login.ftl", data, resp);
+        }
+        else {
+            resp.sendRedirect("/users");
+        }
     }
     @SneakyThrows
     @Override

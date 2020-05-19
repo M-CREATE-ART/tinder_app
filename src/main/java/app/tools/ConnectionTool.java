@@ -1,9 +1,12 @@
 package app.tools;
 
+import app.entities.Message;
 import app.entities.User;
 import lombok.SneakyThrows;
 
 import java.sql.*;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -44,11 +47,11 @@ public class ConnectionTool {
         String SQL = "SELECT * FROM likes WHERE liker_id = ? AND  action = ?";
         PreparedStatement preSt = conn.prepareStatement(SQL);
         preSt.setInt(1, me.getId());
-        preSt.setString(2, "liked" );
+        preSt.setString(2, "liked");
 
         ResultSet resultSet = preSt.executeQuery();
 
-        while (resultSet.next()){
+        while (resultSet.next()) {
             int likedId = resultSet.getInt("liked_id");
 
             User user = allUsers.stream().filter(l -> l.getId() == likedId).findFirst().get();
@@ -61,17 +64,17 @@ public class ConnectionTool {
 
     public List<User> getDislikedUser(User me) throws SQLException {
 
-        List <User> allusers = getAllUsers();
+        List<User> allusers = getAllUsers();
         List<User> disLikedUsers = new ArrayList<>();
 
         Connection conn = DriverManager.getConnection(URL, USER, PASS);
-        String SQL =  "SELECT * FROM likes WHERE liker_id = ? AND action = ?";
+        String SQL = "SELECT * FROM likes WHERE liker_id = ? AND action = ?";
         PreparedStatement preSt = conn.prepareStatement(SQL);
         preSt.setInt(1, me.getId());
         preSt.setString(2, "disliked");
         ResultSet resultSet = preSt.executeQuery();
 
-        while(resultSet.next()){
+        while (resultSet.next()) {
             int likedId = resultSet.getInt("liked_id");
 
             User user = allusers.stream().filter(d -> d.getId() == likedId).findFirst().get();
@@ -88,26 +91,31 @@ public class ConnectionTool {
         List<User> unvisitedUsers = new ArrayList<>();
 
         Connection conn = DriverManager.getConnection(URL, USER, PASS);
-        String SQL =  "SELECT * FROM likes WHERE liker_id =?";
+        String SQL = "SELECT * FROM likes WHERE liker_id =?";
         PreparedStatement preSt = conn.prepareStatement(SQL);
         preSt.setInt(1, me.getId());
         ResultSet resultSet = preSt.executeQuery();
 
-        while(resultSet.next()){
+        while (resultSet.next()) {
             int likedId = resultSet.getInt("liked_id");
 
-            User user = allUsers.stream().filter(d -> d.getId() == likedId).findFirst().get();
+            User user = allUsers.stream()
+                    .filter(d -> d.getId() == likedId)
+                    .findFirst()
+                    .get();
+
             visitedUsers.add(user);
         }
         conn.close();
 
+        User me1 = allUsers.stream().filter(u -> u.getId() == me.getId()).findFirst().get();
+        allUsers.remove(me1);
         allUsers.removeAll(visitedUsers);
-        allUsers.remove(me.getId());
         unvisitedUsers.addAll(allUsers);
 
-        if (unvisitedUsers.size()==0) return Optional.empty();
+        if (unvisitedUsers.size() == 0) return Optional.empty();
 
-        else{
+        else {
             Random random = new Random();
             int r = random.nextInt(unvisitedUsers.size());
             return Optional.of(unvisitedUsers.get(r));
@@ -119,7 +127,7 @@ public class ConnectionTool {
         Connection con = DriverManager.getConnection(URL, USER, PASS);
 
 
-        if(action.equals("like")) {
+        if (action.equals("like")) {
             String SQL = "INSERT INTO likes (liker_id, liked_id, action) VALUES (?,?,'liked')";
             PreparedStatement ps = con.prepareStatement(SQL);
             ps.setInt(1, me.getId());
@@ -136,4 +144,80 @@ public class ConnectionTool {
 
         con.close();
     }
+
+    public List<Message> getMessages(User sideA, User sideB) throws SQLException {
+        List<Message> messages = new ArrayList<>();
+        Connection conn = DriverManager.getConnection(URL, USER, PASS);
+        String SQL = "SELECT * FROM messages WHERE sender_id = ? AND receiver_id = ? ";
+        PreparedStatement preSt = conn.prepareStatement(SQL);
+        preSt.setInt(1, sideA.getId());
+        preSt.setInt(2, sideB.getId());
+
+        ResultSet resultSet = preSt.executeQuery();
+
+        while (resultSet.next()) {
+            int id = resultSet.getInt("id");
+            int senderId = resultSet.getInt("sender_id");
+            int receiverId = resultSet.getInt("receiver_id");
+            String text = resultSet.getString("text");
+            String date = resultSet.getString("message_date");
+
+            messages.add(new Message(id, senderId, receiverId, text, date));
+        }
+        conn.close();
+        return messages;
+    }
+
+    public void saveMessages(User sideA, User sideB, String text) throws SQLException {
+        LocalDateTime now = LocalDateTime.now();
+        DateTimeFormatter format = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm");
+        String formattedNow = now.format(format);
+
+        Connection conn = DriverManager.getConnection(URL, USER, PASS);
+        String SQL = "INSERT INTO messages (sender_id, receiver_id, text, message_date) values(?,?,?,?)";
+        PreparedStatement preSt = conn.prepareStatement(SQL);
+        preSt.setInt(1, sideA.getId());
+        preSt.setInt(2, sideB.getId());
+        preSt.setString(3, text);
+        preSt.setString(4, formattedNow);
+
+        preSt.execute();
+
+        conn.close();
+    }
+
+    public void saveUserInfo(String fullname, String email, String password, String image) throws SQLException {
+        Connection conn = DriverManager.getConnection(URL, USER, PASS);
+        String SQL = "INSERT INTO users(fullname, email, password, image, last_login) VALUES (?, ?, ?, ?, ?)";
+
+        PreparedStatement preSt = conn.prepareStatement(SQL);
+        preSt.setString(1, fullname);
+        preSt.setString(2, email);
+        preSt.setString(3, password);
+        preSt.setString(4, image);
+        preSt.setString(5, "no login");
+
+        preSt.execute();
+
+        conn.close();
+    }
+
+    @SneakyThrows
+    public void updateLastLogin(User user) throws SQLException {
+        Connection conn = DriverManager.getConnection(URL, USER, PASS);
+
+        LocalDateTime now = LocalDateTime.now();
+        DateTimeFormatter format = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm");
+        String formattedNow = now.format(format);
+        String SQL = "UPDATE users SET last_login = ? WHERE id=?";
+        PreparedStatement stmtUser =
+                conn.prepareStatement(SQL);
+
+        stmtUser.setString(1, formattedNow);
+        stmtUser.setInt(2, user.getId());
+        stmtUser.execute();
+        conn.close();
+    }
+
+
 }

@@ -3,14 +3,14 @@ package app.entities;
 public class Message {
     private final int id;
     private final int senderId;
-    private final int recieverId;
+    private final int receiver;
     private final String text;
     private final String date;
 
-    public Message(int id, int senderId, int recieverId, String text, String date) {
+    public Message(int id, int senderId, int receiverId, String text, String date) {
         this.id = id;
         this.senderId = senderId;
-        this.recieverId = recieverId;
+        this.receiver = receiverId;
         this.text = text;
         this.date = date;
     }
@@ -23,8 +23,8 @@ public class Message {
         return senderId;
     }
 
-    public int getRecieverId() {
-        return recieverId;
+    public int getReceiver() {
+        return receiver;
     }
 
     public String getText() {
@@ -37,6 +37,6 @@ public class Message {
 
     @Override
     public String toString() {
-        return String.format("Message[id=%d, senderId=%d, recieverId=%d, text='%s', date='%s']", id, senderId, recieverId, text, date);
+        return String.format("Message[id=%d, senderId=%d, receiverId=%d, text='%s', date='%s']", id, senderId, receiver, text, date);
     }
 }

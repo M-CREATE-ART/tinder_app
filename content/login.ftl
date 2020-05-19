@@ -17,16 +17,16 @@
     <link rel="stylesheet" href="css/style.css">
 </head>
 
-<body class="text-center">
+<body class="text-center , login-custom-styles ">
     <form class="form-signin" method="post">
         <img class="mb-4" src="https://getbootstrap.com/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">
-        <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
-        <label for="inputEmail" class="sr-only">Email address</label>
-        <input name="email" type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
+        <h1 class="h3 mb-3 font-weight-normal, login-heading">Please sign in</h1>
+        <label for="inputEmail" class="sr-only ">Email address</label>
+        <input name="email" type="email" id="inputEmail" class="form-control , input-custom-styles" placeholder="Email address" required autofocus>
         <label for="inputPassword" class="sr-only">Password</label>
-        <input name = "password" type="password" id="inputPassword" class="form-control" placeholder="Password" required>
-        <button name = "submit" class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
-        <p class="mt-5 mb-3 text-muted">&copy; Tinder 2018</p>
+        <input name = "password" type="password" id="inputPassword" class="form-control , input-custom-styles" placeholder="Password" required>
+        <button name = "submit" class="btn btn-lg btn-primary btn-block , login-submit-btn" type="submit">Sign in</button>
+        <p class="mt-5 mb-3 text-muted">&copy; Tinder 2020</p>
     </form>
 </body>
 </html>

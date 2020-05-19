@@ -8,7 +8,8 @@
     <link rel="icon" href="img/favicon.ico">
 
     <title>People list</title>
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css"
+          integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
     <!-- Bootstrap core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
 
@@ -28,74 +29,30 @@
                     <div class="table-container">
                         <table class="table-users table" border="0">
                             <tbody>
+                            <#list users as user>
                                 <tr>
                                     <td width="10">
                                         <div class="avatar-img">
-                                            <img class="img-circle" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSxhcCYW4QDWMOjOuUTxOd50KcJvK-rop9qE9zRltSbVS_bO-cfWA" />  
+                                            <img class="img-circle" src="${user.image}"/>  
                                         </div>
 
                                     </td>
                                     <td class="align-middle">
-                                        Herbert Hoover
-                                    </td>
-                                    <td class="align-middle">
-                                        Builder Sales Agent
-                                    </td>
-                                    <td  class="align-middle">
-                                        Last Login:  6/10/2017<br><small class="text-muted">5 days ago</small>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td width="10">
-                                        <div class="avatar-img">
-                                            <img class="img-circle" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSxhcCYW4QDWMOjOuUTxOd50KcJvK-rop9qE9zRltSbVS_bO-cfWA" />  
-                                        </div>
+                                        <form method="post">
+                                            <button name="message" type="submit" value="${user.email}" class="btn btn-success btn-lg ">
+                                                ${user.fullname}
+                                            </button>
+                                        </form>
 
                                     </td>
                                     <td class="align-middle">
-                                        Herbert Hoover
+                                        ${user.email}
                                     </td>
                                     <td class="align-middle">
-                                        Builder Sales Agent
-                                    </td>
-                                    <td  class="align-middle">
-                                        Last Login:  6/10/2017<br><small class="text-muted">5 days ago</small>
+                                        ${user.lastLogin}
                                     </td>
                                 </tr>
-                                <tr>
-                                    <td width="10">
-                                        <div class="avatar-img">
-                                            <img class="img-circle" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSxhcCYW4QDWMOjOuUTxOd50KcJvK-rop9qE9zRltSbVS_bO-cfWA" />  
-                                        </div>
-
-                                    </td>
-                                    <td class="align-middle">
-                                        Herbert Hoover
-                                    </td>
-                                    <td class="align-middle">
-                                        Builder Sales Agent
-                                    </td>
-                                    <td  class="align-middle">
-                                        Last Login:  6/10/2017<br><small class="text-muted">5 days ago</small>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td width="10">
-                                        <div class="avatar-img">
-                                            <img class="img-circle" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSxhcCYW4QDWMOjOuUTxOd50KcJvK-rop9qE9zRltSbVS_bO-cfWA" />  
-                                        </div>
-
-                                    </td>
-                                    <td class="align-middle">
-                                        Herbert Hoover
-                                    </td>
-                                    <td class="align-middle">
-                                        Builder Sales Agent
-                                    </td>
-                                    <td  class="align-middle">
-                                        Last Login:  6/10/2017<br><small class="text-muted">5 days ago</small>
-                                    </td>
-                                </tr>
+                            </#list>
                             </tbody>
                         </table>
                     </div>
