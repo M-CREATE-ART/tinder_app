@@ -1,5 +1,10 @@
 package app.entities;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+
+@AllArgsConstructor
+@Data
 public class User {
     private final int id;
     private final String email;
@@ -8,36 +13,6 @@ public class User {
     private final String lastLogin;
     private final String image;
 
-    public User(int id, String email, String password, String fullname, String lastLogin, String image) {
-        this.id = id;
-        this.email = email;
-        this.password = password;
-        this.fullname = fullname;
-        this.lastLogin = lastLogin;
-        this.image = image;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public String getFullname() {
-        return fullname;
-    }
-
-    public String getLastLogin() {
-        return lastLogin;
-    }
-
-    public String getImage(){return image;}
 
     @Override
     public String toString() {
