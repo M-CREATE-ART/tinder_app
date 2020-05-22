@@ -64,6 +64,9 @@
                                     </#list>
                                 </tbody>
                             </table>
+                            <a href="/users" class="btn btn-primary btn-lg col-12 float-right">Find out more users</a>
+                            <a href="/logout" class="btn btn-danger btn-lg col-12 float-right">Log out</a>
+
                         </div>
                     </div>
                 </div>

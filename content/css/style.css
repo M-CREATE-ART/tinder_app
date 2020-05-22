@@ -498,8 +498,8 @@ input:focus {
 .brand-logo {
 	font-family: 'Raleway', sans-serif;
 	position: relative;
-	left: 6vh;
-	font-size: 30vh;
+	left: 5vh;
+	font-size: 27vh;
 	font-weight: 300;
 	color: #2e2e33;
 	padding: 0;
@@ -543,7 +543,7 @@ input:focus {
 .register-page-brand-logo {
 	position: relative;
 	color: #2e2e33;
-	font-size: 33vh;
+	font-size: 30vh;
 	right: 10vh;
 }
 .custom-file-input {
@@ -559,7 +559,7 @@ input:focus {
 .user-name{
 	font-size: 4vh;
 	color: #2E2E33;
-	margin-bottom: 10vh;
+	margin-bottom: 3vh;
 	text-transform: uppercase;
 	display: flex;
 	justify-content: center;
@@ -571,7 +571,7 @@ input:focus {
 	height: 55vh;
 }
 .btn-wrapper{
-	margin-top: 10vh;
+	margin-top: 5vh;
 	width: 100%;
 	display: flex;
 	align-items: center;
