@@ -76,8 +76,6 @@ public class MessagesServlet extends HttpServlet {
                 .findFirst()
                 .get();
 
-        System.out.println(me);
-
         if (submit!=null){
             messageDao.saveMessages(me, other,message);
             List<Message> sent = messageDao.getMessages(me, other);

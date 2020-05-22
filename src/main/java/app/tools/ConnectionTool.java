@@ -99,7 +99,7 @@ public class ConnectionTool {
         while (resultSet.next()) {
             int likedId = resultSet.getInt("liked_id");
 
-            User user = allUsers.stream()
+            User user = getAllUsers().stream()
                     .filter(d -> d.getId() == likedId)
                     .findFirst()
                     .get();

@@ -35,7 +35,7 @@ public class RegistrationServlet extends HttpServlet {
         CookieFilter cf = new CookieFilter();
         if (!cf.isLogged(req)) {
             HashMap<String, Object> data = new HashMap<>();
-            engine.render("registration.ftl", data, resp);
+            engine.render("register.ftl", data, resp);
         } else {
             resp.sendRedirect("/users");
 
@@ -55,9 +55,9 @@ public class RegistrationServlet extends HttpServlet {
 
 
         if (userDao.checkDuplicate(email)) {
-            engine.render("registration.ftl", data, resp);
+            engine.render("register.ftl", data, resp);
         } else if (!password.equals(confPass)) {
-            engine.render("registration.ftl", data, resp);
+            engine.render("register.ftl", data, resp);
         } else {
 
             String imageName = uploadImage(req, email);
