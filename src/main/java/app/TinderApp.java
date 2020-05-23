@@ -15,7 +15,15 @@ import java.util.EnumSet;
 
 public class TinderApp {
     public static void main(String[] args) throws Exception {
-        Server server = new Server(8181);
+        int port;
+
+        try{
+            port = Integer.parseInt(System.getenv("PORT"));
+        } catch(NumberFormatException e) {
+            port = 5000;
+        }
+
+        Server server = new Server(port);
         ServletContextHandler handler = new ServletContextHandler();
 
         TemplateEngine engine = TemplateEngine.folder("content");
