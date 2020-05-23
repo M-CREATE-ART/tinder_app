@@ -64,11 +64,7 @@
                                     </#list>
                                 </tbody>
                             </table>
-                            <#if like=='like'>
-                                <a href="/disliked" class="btn btn-warning col-6 float-left">See disliked users</a>
-                            <#else>
-                                <a href="/liked" class="btn btn-success col-6 float-left">See liked users</a>
-                            </#if>
+                            <a href="/users" class="btn btn-primary btn-lg col-12 float-right">Find out more users</a>
                             <a href="/logout" class="btn btn-danger btn-lg col-12 float-right">Log out</a>
 
                         </div>
