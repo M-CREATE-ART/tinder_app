@@ -10,7 +10,7 @@
     <link href="css/css-reset.css" rel="stylesheet" <link
         href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,300;0,400;1,200;1,300;1,400&display=swap"
         rel="stylesheet">
-    <title>Signin Template for Bootstrap</title>
+    <title>Welcome</title>
 
     <!-- Bootstrap core CSS -->
 
