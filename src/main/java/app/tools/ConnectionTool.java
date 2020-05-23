@@ -13,9 +13,9 @@ import java.util.Optional;
 import java.util.Random;
 
 public class ConnectionTool {
-    private final static String URL = "jdbc:postgresql://localhost:5432/tinder";
-    private final static String USER = "postgres";
-    private final static String PASS = "secret";
+    private final static String URL = "jdbc:postgresql://ec2-54-86-170-8.compute-1.amazonaws.com:5432/da1h2qj1ofat97";
+    private final static String USER = "kgnlizgqfjdvmc";
+    private final static String PASS = "4947d47626e4b51c0d0bd51eb1279ea80144c05bddab33950b791a8f00ad362a";
 
     public List<User> getAllUsers() throws SQLException {
         List<User> usersDB = new ArrayList<>();
