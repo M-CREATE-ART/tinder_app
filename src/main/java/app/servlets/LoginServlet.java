@@ -1,6 +1,5 @@
 package app.servlets;
 
-
 import app.dao.UserDao;
 import app.tools.CookieFilter;
 import app.tools.TemplateEngine;
