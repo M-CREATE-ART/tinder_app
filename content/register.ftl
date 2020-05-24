@@ -30,6 +30,12 @@
                 <p class="">Login?</p>
             </a>
         </div>
+        <#if error='passwordError'>
+            <div class="alert alert-danger">Password and confirmed password is not same</div>
+        <#elseif error="emailDuplicate">
+            <div class="alert alert-danger">This email is already used</div>
+        </#if>
+
         <input placeholder="Email" name="email" type="email" id="inputEmail" class="form-control , email" required
                autofocus>
         <input placeholder="Username" name="fullname" type="text" class="form-control , email" required autofocus>

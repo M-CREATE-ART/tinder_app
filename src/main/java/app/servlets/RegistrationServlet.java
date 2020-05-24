@@ -33,8 +33,10 @@ public class RegistrationServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         CookieFilter cf = new CookieFilter();
+        HashMap<String, Object> data = new HashMap<>();
+
         if (!cf.isLogged(req)) {
-            HashMap<String, Object> data = new HashMap<>();
+            data.put("error", "noerror");
             engine.render("register.ftl", data, resp);
         } else {
             resp.sendRedirect("/users");
@@ -46,20 +48,20 @@ public class RegistrationServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HashMap<String, Object> data = new HashMap<>();
+
         String fullname = req.getParameter("fullname");
         String email = req.getParameter("email");
         String password = req.getParameter("password");
         String confPass = req.getParameter("confPass");
-        String image = req.getParameter("image");
-        String register = req.getParameter("register");
 
 
         if (userDao.checkDuplicate(email)) {
+            data.put("error", "emailDuplicate");
             engine.render("register.ftl", data, resp);
         } else if (!password.equals(confPass)) {
+            data.put("error", "passwordError");
             engine.render("register.ftl", data, resp);
         } else {
-
             String imageName = uploadImage(req, email);
             userDao.saveUserInfo(fullname, email, password, imageName);
             resp.sendRedirect("/login");
