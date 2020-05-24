@@ -32,16 +32,18 @@ public class MessagesServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HashMap<String , Object>  data = new HashMap<>();
         User me = userDao.getMeFromCookie(req);
-        Cookie[] cookies = req.getCookies();
-        Optional<Cookie> email = Arrays.stream(cookies).filter(c -> c.getName().equals("message")).findFirst();
+
+        Optional<Cookie> email = Arrays.stream(req.getCookies())
+                .filter(c -> c.getName().equals("message"))
+                .findFirst();
+
         if (email.equals(Optional.empty())){
             resp.sendRedirect("/liked");
         }else {
-            User other = userDao.getAllUsers().stream()
-                    .filter(u -> u.getEmail().equals(email.get().getValue()))
-                    .findFirst()
-                    .get();
-            System.out.println(other);
+            int oppositeId = Integer.parseInt(email.get().getValue());
+            User other = userDao.getUserById(oppositeId);
+            userDao.updateLastLogin(me);
+
             List<Message> sent = messageDao.getMessages(me, other);
             List<Message> received = messageDao.getMessages(other, me);
             List<Message> allMessages = new ArrayList<>();
@@ -69,12 +71,13 @@ public class MessagesServlet extends HttpServlet {
         String message = req.getParameter("message");
         String submit = req.getParameter("submit");
         User me = userDao.getMeFromCookie(req);
-        Cookie[] cookies = req.getCookies();
-        Optional<Cookie> email = Arrays.stream(cookies).filter(c -> c.getName().equals("message")).findFirst();
-        User other = userDao.getAllUsers().stream()
-                .filter(o -> o.getEmail().equals(email.get().getValue()))
-                .findFirst()
-                .get();
+
+        Optional<Cookie> email = Arrays.stream(req.getCookies())
+                .filter(c -> c.getName().equals("message"))
+                .findFirst();
+
+        int receiverId = Integer.parseInt(email.get().getValue());
+        User other = userDao.getUserById(receiverId);
 
         if (submit!=null){
             messageDao.saveMessages(me, other,message);

@@ -35,13 +35,14 @@ public class DislikedServlet extends HttpServlet {
         engine.render("people-list.ftl", data, resp);
     }
 
+    @SneakyThrows
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String email = req.getParameter("message");
         Cookie cookie = new Cookie("message", email);
         cookie.setMaxAge(60*60);
         resp.addCookie(cookie);
-
+        userDao.updateLastLogin(userDao.getMeFromCookie(req));
         resp.sendRedirect("/messages");
 
     }

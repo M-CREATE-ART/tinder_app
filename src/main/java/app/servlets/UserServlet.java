@@ -35,6 +35,7 @@ public class UserServlet extends HttpServlet {
         HashMap<String, Object> data = new HashMap<>();
 
         User me = userDao.getMeFromCookie(req);
+        userDao.updateLastLogin(me);
         Optional<User> unVisitedUser = userDao.getUnVisitedUser(me);
         if (unVisitedUser.equals(Optional.empty())){
             resp.sendRedirect("/liked");
@@ -69,7 +70,7 @@ public class UserServlet extends HttpServlet {
                 .get();
 
         likeDao.addLike(button, me , other);
-
+        userDao.updateLastLogin(me);
         Optional<User> unVisitedUser = userDao.getUnVisitedUser(me);
 
         if (unVisitedUser.equals(Optional.empty())){

@@ -39,8 +39,14 @@ public class ConnectionTool {
         return usersDB;
     }
 
+    public User getUserById(int id) throws SQLException {
+        return getAllUsers().stream()
+                .filter(u -> u.getId() == id)
+                .findFirst()
+                .get();
+    }
+
     public List<User> getLikedUser(User me) throws SQLException {
-        List<User> allUsers = getAllUsers();
         List<User> likedUsers = new ArrayList<>();
 
         Connection conn = DriverManager.getConnection(URL, USER, PASS);
@@ -54,17 +60,14 @@ public class ConnectionTool {
         while (resultSet.next()) {
             int likedId = resultSet.getInt("liked_id");
 
-            User user = allUsers.stream().filter(l -> l.getId() == likedId).findFirst().get();
-            likedUsers.add(user);
+            likedUsers.add(getUserById(likedId));
 
         }
-        conn.close();
         return likedUsers;
     }
 
     public List<User> getDislikedUser(User me) throws SQLException {
 
-        List<User> allusers = getAllUsers();
         List<User> disLikedUsers = new ArrayList<>();
 
         Connection conn = DriverManager.getConnection(URL, USER, PASS);
@@ -77,11 +80,9 @@ public class ConnectionTool {
         while (resultSet.next()) {
             int likedId = resultSet.getInt("liked_id");
 
-            User user = allusers.stream().filter(d -> d.getId() == likedId).findFirst().get();
-            disLikedUsers.add(user);
+            disLikedUsers.add(getUserById(likedId));
         }
 
-        conn.close();
         return disLikedUsers;
     }
 
@@ -99,19 +100,18 @@ public class ConnectionTool {
         while (resultSet.next()) {
             int likedId = resultSet.getInt("liked_id");
 
-            User user = getAllUsers().stream()
+            User user = allUsers.stream()
                     .filter(d -> d.getId() == likedId)
                     .findFirst()
                     .get();
 
             visitedUsers.add(user);
         }
-        conn.close();
 
         User me1 = allUsers.stream().filter(u -> u.getId() == me.getId()).findFirst().get();
         allUsers.remove(me1);
         allUsers.removeAll(visitedUsers);
-        unvisitedUsers.addAll(allUsers);
+        unvisitedUsers = allUsers;
 
         if (unvisitedUsers.size() == 0) return Optional.empty();
 
@@ -125,24 +125,14 @@ public class ConnectionTool {
 
     public void addLike(String action, User me, User other) throws SQLException {
         Connection con = DriverManager.getConnection(URL, USER, PASS);
-
-
-        if (action.equals("like")) {
-            String SQL = "INSERT INTO likes (liker_id, liked_id, action) VALUES (?,?,'liked')";
-            PreparedStatement ps = con.prepareStatement(SQL);
-            ps.setInt(1, me.getId());
-            ps.setInt(2, other.getId());
-            ps.execute();
-        } else {
-            String SQL = "INSERT INTO likes (liker_id, liked_id, action) VALUES (?,?,'disliked')";
-            PreparedStatement ps = con.prepareStatement(SQL);
-            ps.setInt(1, me.getId());
-            ps.setInt(2, other.getId());
-            ps.execute();
-
-        }
-
+        String SQL = "INSERT INTO likes (liker_id, liked_id, action) VALUES (?,?,?)";
+        PreparedStatement ps = con.prepareStatement(SQL);
+        ps.setInt(1, me.getId());
+        ps.setInt(2, other.getId());
+        ps.setString(3, action);
+        ps.execute();
         con.close();
+
     }
 
     public List<Message> getMessages(User sideA, User sideB) throws SQLException {

@@ -12,7 +12,6 @@ import java.util.Optional;
 
 public class UserDao {
     ConnectionTool connectionTool = new ConnectionTool();
-    List<User> users = connectionTool.getAllUsers();
 
     public UserDao() throws SQLException {
     }
@@ -47,6 +46,10 @@ public class UserDao {
 
 
     }
+    public User getUserById(int id) throws SQLException {
+        return connectionTool.getUserById(id);
+    }
+
 
     public List<User> getDislikedUsers(User me) throws SQLException {
         return connectionTool.getDislikedUser(me);
