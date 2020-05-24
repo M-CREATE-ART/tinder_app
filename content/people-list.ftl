@@ -28,7 +28,9 @@
 
             <div clas='cutom-table-container'>
                 <div class="heading-container">
-                    <h2 class="heading">You've matched with</h2>
+                    <h2 class="heading">
+                        <#if action=='liked'>People you have liked
+                        <#else>People you have disliked</#if></h2>
                 </div>
 
                 <div class="panel panel-default user_panel , custom-table  ">
@@ -64,6 +66,12 @@
                                     </#list>
                                 </tbody>
                             </table>
+                            <#if action=='liked'>
+                                <a href="/disliked" class="btn btn-warning col-6 float-left">See disliked users</a>
+                            <#else>
+                                <a href="/liked" class="btn btn-success col-6 float-left">See liked users</a>
+                            </#if>
+
                             <a href="/users" class="btn btn-primary btn-lg col-12 float-right">Find out more users</a>
                             <a href="/logout" class="btn btn-danger btn-lg col-12 float-right">Log out</a>
 

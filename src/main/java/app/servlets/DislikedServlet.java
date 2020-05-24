@@ -29,7 +29,8 @@ public class DislikedServlet extends HttpServlet {
         HashMap<String, Object> data = new HashMap<>();
         User me = userDao.getMeFromCookie(req);
         List<User> dislikedUsers = userDao.getDislikedUsers(me);
-        data.put("users",dislikedUsers );
+        data.put("users",dislikedUsers);
+        data.put("action", "disliked");
         userDao.updateLastLogin(me);
         engine.render("people-list.ftl", data, resp);
     }

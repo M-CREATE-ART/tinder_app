@@ -30,6 +30,7 @@ public class LikedServlet extends HttpServlet {
         User me = userDao.getMeFromCookie(req);
         List<User> likedUsers = userDao.getLikedUsers(me);
         data.put("users", likedUsers);
+        data.put("action", "liked");
         userDao.updateLastLogin(me);
         engine.render("people-list.ftl", data, resp);
     }
