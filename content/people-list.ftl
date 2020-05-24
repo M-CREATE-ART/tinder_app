@@ -29,7 +29,7 @@
             <div clas='cutom-table-container'>
                 <div class="heading-container">
                     <h2 class="heading">
-                        <#if action=='liked'>People you have liked
+                        <#if act=='like'>People you have liked
                         <#else>People you have disliked</#if></h2>
                 </div>
 
@@ -66,7 +66,7 @@
                                     </#list>
                                 </tbody>
                             </table>
-                            <#if action=='liked'>
+                            <#if act=='like'>
                                 <a href="/disliked" class="btn btn-warning col-6 float-right">See disliked users</a>
                             <#else>
                                 <a href="/liked" class="btn btn-success col-6 float-right">See liked users</a>

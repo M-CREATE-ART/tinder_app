@@ -30,7 +30,7 @@ public class DislikedServlet extends HttpServlet {
         User me = userDao.getMeFromCookie(req);
         List<User> dislikedUsers = userDao.getDislikedUsers(me);
         data.put("users",dislikedUsers);
-        data.put("action", "disliked");
+        data.put("act", "dislike");
         userDao.updateLastLogin(me);
         engine.render("people-list.ftl", data, resp);
     }
