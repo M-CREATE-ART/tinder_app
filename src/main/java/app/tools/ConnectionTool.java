@@ -63,6 +63,7 @@ public class ConnectionTool {
             likedUsers.add(getUserById(likedId));
 
         }
+        conn.close();
         return likedUsers;
     }
 
@@ -82,7 +83,7 @@ public class ConnectionTool {
 
             disLikedUsers.add(getUserById(likedId));
         }
-
+        conn.close();
         return disLikedUsers;
     }
 
@@ -120,7 +121,6 @@ public class ConnectionTool {
             int r = random.nextInt(unvisitedUsers.size());
             return Optional.of(unvisitedUsers.get(r));
         }
-
     }
 
     public void addLike(String action, User me, User other) throws SQLException {
