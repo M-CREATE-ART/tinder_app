@@ -44,7 +44,7 @@
         <input name="confPass" type="password" id="inputPassword" class="form-control , input-field "
                placeholder="Confirm password" required>
         <label for="file-upload" class="custom-file-upload">choose profile picture</label>
-        <input required name="image" value="image" type="file" id="file-upload" placeholder="upload your photo"
+        <input name="image" value="image" type="file" id="file-upload" placeholder="upload your photo"
                class="custom-file-input"/>
         <img class="user-profie"/>
         <button name="submit" value="register" class="submit-btn" type="submit">Sign up</button>
