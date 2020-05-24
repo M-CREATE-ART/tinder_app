@@ -29,8 +29,10 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         CookieFilter cf = new CookieFilter();
+        HashMap<String, Object> data = new HashMap<>();
+
         if (!cf.isLogged(req)) {
-            HashMap<String, Object> data = new HashMap<>();
+            data.put("error", "noerror");
             engine.render("login.ftl", data, resp);
         }
         else {
@@ -50,6 +52,7 @@ public class LoginServlet extends HttpServlet {
             resp.addCookie(logCookie);
             resp.sendRedirect("/users");
         } else {
+            data.put("error", "matchError");
             engine.render("login.ftl", data, resp);
         }
 

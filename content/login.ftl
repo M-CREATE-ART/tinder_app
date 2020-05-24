@@ -30,6 +30,10 @@
                     <p class="">New?</p>
                 </a>
             </div>
+            <#if error='matchError'>
+                <div class="alert-danger alert">Username or password is not correct!</div>
+            </#if>
+
             <input placeholder="Email" name="email" type="email" id="inputEmail" class="form-control , email" required
                 autofocus>
             <input name="password" type="password" id="inputPassword" class="form-control , input-field "
