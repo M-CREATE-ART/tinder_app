@@ -46,7 +46,7 @@
             <button name="btn" value="like" type="submit" class="btn btn-outline-success , btn-like ">Like</button>
         </form>
         <a href="/liked" class="btn btn-primary btn-lg col-6 float-left">People you liked</a>
-        <a href="/disliked" class="btn btn-outline-danger , btn-dislike">People you have disliked</a>
+        <a href="/disliked" class="btn btn-warning btn-lg col-6 float-right">People you disliked</a>
         <a href="/logout" class="btn btn-danger btn-lg col-12 float-right">Log out</a>
 
 
