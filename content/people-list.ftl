@@ -67,12 +67,11 @@
                                 </tbody>
                             </table>
                             <#if action=='liked'>
-                                <a href="/disliked" class="btn btn-warning col-6 float-left">See disliked users</a>
+                                <a href="/disliked" class="btn btn-warning col-6 float-right">See disliked users</a>
                             <#else>
-                                <a href="/liked" class="btn btn-success col-6 float-left">See liked users</a>
+                                <a href="/liked" class="btn btn-success col-6 float-right">See liked users</a>
                             </#if>
-
-                            <a href="/users" class="btn btn-primary btn-lg col-6 float-right">Find out more users</a>
+                            <a href="/users" class="btn btn-primary col-6 float-left">Find out more users</a>
                             <a href="/logout" class="btn btn-danger btn-lg col-12 float-right">Log out</a>
 
                         </div>
