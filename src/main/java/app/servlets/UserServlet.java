@@ -55,7 +55,7 @@ public class UserServlet extends HttpServlet {
         else {
 
             User other = userDao.getAllUsers()
-                    .stream().filter(u -> u.getEmail().equals(email))
+                    .stream().filter(u -> u.getEmail().equals(email.get().getValue()))
                     .findFirst()
                     .get();
             User me = userDao.getMeFromCookie(req);
