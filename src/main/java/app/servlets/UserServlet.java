@@ -44,39 +44,26 @@ public class UserServlet extends HttpServlet {
         HashMap<String, Object> data = new HashMap<>();
 
         String button = req.getParameter("btn");
-        User me = userDao.getMeFromCookie(req);
 
         Cookie[] cookies = req.getCookies();
 
-        String email = Arrays.stream(cookies)
+        Optional<Cookie> email = Arrays.stream(cookies)
                 .filter(c -> c.getName().equals("like"))
-                .findFirst()
-                .get()
-                .getValue();
-        User other = userDao.getAllUsers()
-                .stream().filter(u -> u.getEmail().equals(email))
-                .findFirst()
-                .get();
+                .findFirst();
 
-        if (button != null) {
+        if (email.equals(Optional.empty())) resp.sendRedirect("/users");
+        else {
+
+            User other = userDao.getAllUsers()
+                    .stream().filter(u -> u.getEmail().equals(email))
+                    .findFirst()
+                    .get();
+            User me = userDao.getMeFromCookie(req);
             likeDao.addLike(button, me, other);
             userDao.updateLastLogin(me);
-            Optional<User> unVisitedUser = userDao.getUnVisitedUser(me);
+            printUnlikedUser(resp, data, me);
 
-            if (unVisitedUser.equals(Optional.empty())) {
-                resp.sendRedirect("/liked");
-            } else {
-                Cookie cookie = new Cookie("like", unVisitedUser.get().getEmail());
-                cookie.setMaxAge(60 * 60);
-                resp.addCookie(cookie);
-                data.put("user", unVisitedUser.get());
-                userDao.updateLastLogin(me);
-                engine.render("like-page.ftl", data, resp);
-            }
         }
-
-
-
     }
 
     private void printUnlikedUser(HttpServletResponse resp, HashMap<String, Object> data, User currentUser) throws SQLException, IOException {

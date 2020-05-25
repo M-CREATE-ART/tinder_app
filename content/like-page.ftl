@@ -10,7 +10,7 @@
 
     <title>Like page</title>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css"
-          integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+        integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
     <!-- Bootstrap core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
 
@@ -19,9 +19,8 @@
 </head>
 
 <body style="background-color: #f5f5f5;">
-<img src="image/pictuers/cloud-left.png" class="cloud-left"/>
+    <img src="image/pictuers/cloud-left.png" class="cloud-left"/>
 
-<form method="post" class="btn-wrapper">
     <div class="col-4 ">
         <div class="user-name">
             <h3 class="mb-0 text-truncated">${user.fullname}</h3>
@@ -42,16 +41,16 @@
 
             <!--/card-block-->
         </div>
-        <button name="btn" value="dislike" type="submit" class="btn btn-outline-danger , btn-dislike">Dislike</button>
-        <button name="btn" value="like" type="submit" class="btn btn-outline-success , btn-like ">Like</button>
+        <form method="post" class="btn-wrapper">
+            <button name="btn" value="dislike" type="submit" class="btn btn-outline-danger , btn-dislike">Dislike</button>
+            <button name="btn" value="like" type="submit" class="btn btn-outline-success , btn-like ">Like</button>
+        </form>
         <a href="/liked" class="btn btn-outline-info btn-lg col-6 float-left">People you liked</a>
         <a href="/disliked" class="btn btn-outline-danger btn-lg col-6 float-right">People you disliked</a>
         <a href="/logout" class="btn btn-danger btn-lg col-12 float-right">Log out</a>
 
     </div>
-</form>
-
-<img src="image/pictuers/cloud-right.png" class="cloud-right"/>
+    <img src="image/pictuers/cloud-right.png" class="cloud-right"/>
 
 </body>
 
