@@ -90,7 +90,7 @@ public class ConnectionTool {
     public Optional<User> getUnVisitedUser(User me) throws SQLException {
         List<User> allUsers = getAllUsers();
         List<User> visitedUsers = new ArrayList<>();
-        List<User> unvisitedUsers = new ArrayList<>();
+        List<User> unvisitedUsers;
 
         Connection conn = DriverManager.getConnection(URL, USER, PASS);
         String SQL = "SELECT * FROM likes WHERE liker_id =?";
@@ -108,6 +108,8 @@ public class ConnectionTool {
 
             visitedUsers.add(user);
         }
+
+        conn.close();
 
         User me1 = allUsers.stream().filter(u -> u.getId() == me.getId()).findFirst().get();
         allUsers.remove(me1);
