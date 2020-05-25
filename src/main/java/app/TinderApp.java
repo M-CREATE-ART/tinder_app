@@ -28,6 +28,7 @@ public class TinderApp {
 
         TemplateEngine engine = TemplateEngine.folder("content");
 
+        handler.addServlet(new ServletHolder(new MainServlet()), "/*");
         handler.addServlet(new ServletHolder(new LoginServlet(engine)), "/login");
         handler.addServlet(RegistrationServlet.class, "/reg")
                 .getRegistration().setMultipartConfig(new MultipartConfigElement("./image"));
@@ -36,7 +37,6 @@ public class TinderApp {
         handler.addServlet(new ServletHolder(new MessagesServlet(engine)), "/messages");
         handler.addServlet(new ServletHolder(new UserServlet(engine)), "/users");
         handler.addServlet(new ServletHolder(new LogoutServlet()), "/logout" );
-        handler.addServlet(new ServletHolder(new MainServlet()), "/*");
         handler.addServlet(new ServletHolder(new FrontEndServlet("css")), "/css/*");
         handler.addServlet(new ServletHolder(new FrontEndServlet("image")), "/image/*");
 

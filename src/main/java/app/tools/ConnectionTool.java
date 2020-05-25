@@ -53,7 +53,7 @@ public class ConnectionTool {
         String SQL = "SELECT * FROM likes WHERE liker_id = ? AND  action = ?";
         PreparedStatement preSt = conn.prepareStatement(SQL);
         preSt.setInt(1, me.getId());
-        preSt.setString(2, "liked");
+            preSt.setString(2, "like");
 
         ResultSet resultSet = preSt.executeQuery();
 
@@ -75,7 +75,7 @@ public class ConnectionTool {
         String SQL = "SELECT * FROM likes WHERE liker_id = ? AND action = ?";
         PreparedStatement preSt = conn.prepareStatement(SQL);
         preSt.setInt(1, me.getId());
-        preSt.setString(2, "disliked");
+        preSt.setString(2, "dislike");
         ResultSet resultSet = preSt.executeQuery();
 
         while (resultSet.next()) {

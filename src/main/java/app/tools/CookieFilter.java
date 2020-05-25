@@ -10,17 +10,16 @@ import java.util.Arrays;
 public class CookieFilter implements Filter {
 
 
-    public boolean isHttp(ServletRequest req){
+    private boolean isHttp(ServletRequest req){
         return req instanceof HttpServletRequest;
     }
 
-    public boolean isLogged(HttpServletRequest hreq){
-        Cookie[] cookies = hreq.getCookies();
+    public boolean isLogged(HttpServletRequest req){
+        Cookie[] cookies = req.getCookies();
 
-        if (cookies == null) return false;
-        else{
-            return Arrays.stream(cookies).anyMatch(c -> c.getName().equals("login"));
-        }
+        if (cookies==null) return false;
+        return Arrays.stream(cookies)
+                .anyMatch(cookie -> cookie.getName().equals("login"));
 
     }
 
@@ -31,10 +30,10 @@ public class CookieFilter implements Filter {
 
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
-        if (isHttp(servletRequest ) && isLogged((HttpServletRequest) servletRequest)){
+        if (isHttp(servletRequest) && isLogged((HttpServletRequest) servletRequest)){
             filterChain.doFilter(servletRequest, servletResponse);
         }
-        else {( (HttpServletResponse)servletResponse).sendRedirect("/login");}
+        else ((HttpServletResponse) servletResponse).sendRedirect("/login");
     }
 
     @Override

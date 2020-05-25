@@ -33,20 +33,9 @@ public class UserServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HashMap<String, Object> data = new HashMap<>();
-
-        User me = userDao.getMeFromCookie(req);
-        userDao.updateLastLogin(me);
-        Optional<User> unVisitedUser = userDao.getUnVisitedUser(me);
-        if (unVisitedUser.equals(Optional.empty())){
-            resp.sendRedirect("/liked");
-        }else {
-            Cookie cookie = new Cookie("like", unVisitedUser.get().getEmail());
-            cookie.setMaxAge(60*60);
-            resp.addCookie(cookie);
-            data.put("user", unVisitedUser.get());
-            engine.render("like-page.ftl", data, resp);
-        }
-
+        User currentUser = userDao.getMeFromCookie(req);
+        userDao.updateLastLogin(currentUser);
+        printUnlikedUser(resp, data, currentUser);
     }
 
     @SneakyThrows
@@ -88,4 +77,18 @@ public class UserServlet extends HttpServlet {
 
 
     }
+
+    private void printUnlikedUser(HttpServletResponse resp, HashMap<String, Object> data, User currentUser) throws SQLException, IOException {
+        Optional<User> unLikedUser = userDao.getUnVisitedUser(currentUser);
+
+        if (unLikedUser.equals(Optional.empty())) {
+            resp.sendRedirect("/liked");
+        } else {
+            Cookie cookie = new Cookie("like", unLikedUser.get().getEmail());
+            resp.addCookie(cookie);
+            data.put("user", unLikedUser.get());
+            engine.render("like-page.ftl", data, resp);
+        }
+    }
 }
+
