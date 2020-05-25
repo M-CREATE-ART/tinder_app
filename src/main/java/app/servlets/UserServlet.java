@@ -58,21 +58,22 @@ public class UserServlet extends HttpServlet {
                 .findFirst()
                 .get();
 
-        likeDao.addLike(button, me , other);
-        userDao.updateLastLogin(me);
-        Optional<User> unVisitedUser = userDao.getUnVisitedUser(me);
-
-        if (unVisitedUser.equals(Optional.empty())){
-            resp.sendRedirect("/liked");
-        }else {
-            Cookie cookie = new Cookie("like", unVisitedUser.get().getEmail());
-            cookie.setMaxAge(60*60);
-            resp.addCookie(cookie);
-            data.put("user", unVisitedUser.get());
+        if (button != null) {
+            likeDao.addLike(button, me, other);
             userDao.updateLastLogin(me);
-            engine.render("like-page.ftl", data, resp);
-        }
+            Optional<User> unVisitedUser = userDao.getUnVisitedUser(me);
 
+            if (unVisitedUser.equals(Optional.empty())) {
+                resp.sendRedirect("/liked");
+            } else {
+                Cookie cookie = new Cookie("like", unVisitedUser.get().getEmail());
+                cookie.setMaxAge(60 * 60);
+                resp.addCookie(cookie);
+                data.put("user", unVisitedUser.get());
+                userDao.updateLastLogin(me);
+                engine.render("like-page.ftl", data, resp);
+            }
+        }
 
 
 

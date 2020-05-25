@@ -49,7 +49,7 @@
                                         </td>
                                         <td class="align-middle">
                                             <form method="post">
-                                                <button name="message" type="submit" value="${user.email}"
+                                                <button name="message" type="submit" value="${user.id}"
                                                     class="user-name-btn">
                                                     ${user.fullname}
                                                 </button>
