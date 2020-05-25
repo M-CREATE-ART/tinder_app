@@ -13,9 +13,9 @@ import java.util.Optional;
 import java.util.Random;
 
 public class ConnectionTool {
-    private final static String URL = "jdbc:postgresql://ec2-34-195-169-25.compute-1.amazonaws.com:5432/d4q9lnfavio6u8";
-    private final static String USER = "akhhelevfvkzgi";
-    private final static String PASS = "05e6dc82487282701fa2f66fb3b534f666002827417d326ceb4509019c9cdb1a";
+    private final static String URL = "jdbc:postgresql://ec2-3-223-21-106.compute-1.amazonaws.com:5432/d38e4mg1bsr47m";
+    private final static String USER = "kszvqxxnevraav";
+    private final static String PASS = "a24c5850e94f7de74524545530f06a61cb1164baaa7407df7f5b4ba16b24187b";
 
     public List<User> getAllUsers() throws SQLException {
         List<User> usersDB = new ArrayList<>();
