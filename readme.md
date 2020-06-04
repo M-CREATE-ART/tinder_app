@@ -1,11 +1,12 @@
 ## Step project Tinder
 
 #### How to run it locally
-The main idea of this project is:
+
 - [registration](http://localhost:5000/reg)
 - [login](http://localhost:5000/login)
 
 If you want to test it, there are some test credentials
+
 1. email - ***test@gmail.com*** and password - ***test***
 2. email - ***sh1@gmail.com*** and password - ***123***
 
