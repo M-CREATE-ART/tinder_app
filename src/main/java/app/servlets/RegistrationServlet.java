@@ -1,7 +1,6 @@
 package app.servlets;
 
 import app.dao.UserDao;
-import app.entities.User;
 import app.tools.CookieFilter;
 import app.tools.TemplateEngine;
 import lombok.SneakyThrows;
@@ -16,9 +15,7 @@ import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
-import java.sql.Connection;
 import java.sql.SQLException;
-import java.time.LocalDateTime;
 import java.util.HashMap;
 
 public class RegistrationServlet extends HttpServlet {

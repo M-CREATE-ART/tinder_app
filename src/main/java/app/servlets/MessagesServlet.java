@@ -5,7 +5,6 @@ import app.dao.UserDao;
 import app.entities.Message;
 import app.entities.User;
 import app.tools.TemplateEngine;
-import com.jcabi.immutable.Array;
 import lombok.SneakyThrows;
 
 import javax.servlet.ServletException;
