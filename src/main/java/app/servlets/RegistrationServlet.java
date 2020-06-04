@@ -20,7 +20,7 @@ import java.util.HashMap;
 
 public class RegistrationServlet extends HttpServlet {
 
-    private final TemplateEngine engine = TemplateEngine.folder("content");
+    private final TemplateEngine engine = TemplateEngine.folder("src/main/resources/content");
     UserDao userDao = new UserDao();
 
     public RegistrationServlet() throws IOException, SQLException {
@@ -73,7 +73,7 @@ public class RegistrationServlet extends HttpServlet {
         InputStream partIS = p.getInputStream();
         String fileSubName = p.getSubmittedFileName();
         String filename = String.format("%s%s", email, fileSubName);
-        Files.copy(partIS, Paths.get("content/image/" + filename),
+        Files.copy(partIS, Paths.get("src/main/resources/content/image/" + filename),
                 StandardCopyOption.REPLACE_EXISTING);
         fileNameBuilder.append("image/").append(filename);
 
