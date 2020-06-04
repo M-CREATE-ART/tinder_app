@@ -20,7 +20,7 @@ public class FrontEndServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String filename = req.getPathInfo();
-        String fileLoc = "content";
+        String fileLoc = "src/main/resources/content";
         Path path = Paths.get(fileLoc, subpath, filename);
 
         try(OutputStream os = resp.getOutputStream()) {

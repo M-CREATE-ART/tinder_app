@@ -26,7 +26,7 @@ public class TinderApp {
         Server server = new Server(port);
         ServletContextHandler handler = new ServletContextHandler();
 
-        TemplateEngine engine = TemplateEngine.folder("content");
+        TemplateEngine engine = TemplateEngine.folder("src/main/resources/content");
 
         handler.addServlet(new ServletHolder(new MainServlet()), "/*");
         handler.addServlet(new ServletHolder(new LoginServlet(engine)), "/login");
