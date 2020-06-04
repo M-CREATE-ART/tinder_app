@@ -1,7 +1,14 @@
+# files in the root folder and all subfolders
+.classpath
+.factorypath
+.project
+
+# files in the root folder only
+/*.iml
+
+# folders in all subfolders
+target/
+
+# folders in the root rolder only
 /.idea/
-
-# `target/` folder in all sub-directories
-**/target/*
-
-# `*.iml` files in all sub-directories
-**/*.iml
+/.settings/
